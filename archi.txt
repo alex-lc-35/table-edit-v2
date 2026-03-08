@@ -1,0 +1,10 @@
+resources
+  js
+    app.js
+    tableEdit.js
+    table-edit
+      ApiService.ts
+      TableEdit.ts
+      index.ts
+  views
+    test.blade.php

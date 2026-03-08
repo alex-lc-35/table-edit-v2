@@ -15,15 +15,9 @@ class TestController extends Controller
         return view('test');
     }
 
-    public function get()
+    public function testApi()
     {
-        return json_encode('test GET');
-    }
-
-    public function post(Request $request)
-    {
-        $data = $request->all();
-        return json_encode($data);
+        return view('testApi');
     }
 
 }

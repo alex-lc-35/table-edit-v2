@@ -10,7 +10,4 @@ Route::get('/', function () {
 
 Route::get('/index', [TestController::class, 'index']);
 Route::get('/test-page', [TestController::class, 'testPage']);
-
-Route::get('/table-edit/{className}', [TableEditController::class, 'show']);
-
-Route::post('/table-edit', [TableEditController::class, 'edit']);
+Route::get('/test-api', [TestController::class, 'testApi']);
