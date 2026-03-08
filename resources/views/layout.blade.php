@@ -13,6 +13,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
-@yield('content', 'HELLO WORLD !')
+<div class="container mx-auto p-4">
+    @yield('content', 'HELLO WORLD !')
+</div>
 </body>
 </html>

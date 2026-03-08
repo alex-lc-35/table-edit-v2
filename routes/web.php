@@ -9,6 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [TestController::class, 'index']);
+Route::get('/test-page', [TestController::class, 'testPage']);
 
 Route::get('/table-edit/{className}', [TableEditController::class, 'show']);
 
