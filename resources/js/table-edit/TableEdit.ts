@@ -1,11 +1,11 @@
 // js/table-edit/TableEdit.ts
 
 export class TableEdit {
-    private name: string;
-    private rows: any[];
-    private keyColumn: string;
-    private data: any[];
-    private columns: any[];
+    private readonly name: string;
+    private readonly rows: any[];
+    private readonly keyColumn: string;
+    private readonly data: any[];
+    private readonly columns: any[];
 
     constructor(data: { success: boolean, message: string, name: string, rows: any[], keyColumn: string, options: { worksheets: any[] } }) {
         this.name = data.name;  // Récupérer le nom du tableau
