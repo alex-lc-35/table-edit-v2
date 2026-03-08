@@ -10,6 +10,6 @@ Route::middleware('api')->group(function () {
 
     Route::prefix('table-edit')->group(function () {
         Route::get('/{className}', [TableEditController::class, 'show']);
-        Route::post('/table-edit', [TableEditController::class, 'edit']);
+        Route::post('/{className}', [TableEditController::class, 'edit']);
     });
 });

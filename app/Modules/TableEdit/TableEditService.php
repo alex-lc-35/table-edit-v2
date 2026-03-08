@@ -23,11 +23,6 @@ class TableEditService
         $this->data = collect();
     }
 
-    public static function make(string $tableName): self
-    {
-        return new self($tableName);
-    }
-
     public function setColumns(array|Collection $columns): self
     {
         $this->columns = $columns instanceof Collection ? $columns : collect($columns);
@@ -49,7 +44,6 @@ class TableEditService
     public function edit(Request $request)
     {
         /** todo : vérifier la request, formrequest ?  */
-
 
         $columnName = $request->get('columnName');
         $row = $request->get('row');
@@ -112,6 +106,11 @@ class TableEditService
                 "message" => "Erreur lors de la mise à jour"
             ];
         }
+    }
+
+    public static function make(string $tableName): self
+    {
+        return new self($tableName);
     }
 
     public function generate(): array

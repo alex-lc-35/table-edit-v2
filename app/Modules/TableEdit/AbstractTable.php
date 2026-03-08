@@ -42,7 +42,6 @@ abstract class AbstractTable
 
     public function edit(Request $request): array
     {
-        dd("EDIT");
         return TableEditService::make($this->tableName())
             ->setColumns($this->columns())
             ->edit($request);

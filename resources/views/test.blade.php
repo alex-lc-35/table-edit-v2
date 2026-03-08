@@ -12,11 +12,11 @@
     <pre id="res" class="bg-gray-100 p-4 rounded border border-gray-300"></pre>
 
     <script>
-        document.getElementById('test').addEventListener('click', async () => {
+        document.addEventListener("DOMContentLoaded", async function () {
             const tableEdit = await window.initTableEdit();
-            console.log(tableEdit)
-            const name = tableEdit.getName()
-            console.log(name)
+            console.log(tableEdit);
+            const name = tableEdit.getName();
+            console.log(name);
         });
     </script>
 @endsection
