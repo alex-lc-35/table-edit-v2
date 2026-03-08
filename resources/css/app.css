@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@import 'jspreadsheet-ce/dist/jspreadsheet.css';
+@import 'jspreadsheet-ce/dist/jspreadsheet.themes.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
