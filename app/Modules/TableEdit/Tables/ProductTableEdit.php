@@ -25,7 +25,8 @@ class ProductTableEdit extends AbstractTable
     public function columns(): array
     {
         return [
-            Column::make('id')->visible(false),
+            Column::make('id')
+                ->width('0'),
 
             TextColumn::make('name', 'Nom'),
 

@@ -6,7 +6,7 @@ import jspreadsheet from 'jspreadsheet-ce';
 
 export class TableEdit {
     private readonly name: string;
-    private readonly rows: any[];
+    private readonly rows: any;
     private readonly keyColumn: string;
     private readonly data: any[];
     private readonly columns: any[];
@@ -48,15 +48,15 @@ export class TableEdit {
     initJspreadsheet() {
         const spreadsheetElement = document.getElementById('spreadsheet');
         if (spreadsheetElement) {
-            return jspreadsheet(spreadsheetElement, {
+            jspreadsheet(spreadsheetElement, {
                 worksheets: [{
                     data: this.data,
                     columns: this.columns
                 }],
                 // Événement sur les changements
-                onchange: (instance, cell, col, row, value) => {
+                onchange: (instance: any, cell: any, col: any, row: any, value: any, ess:any) => {
                     console.log(`Cellule modifiée : Ligne ${row}, Colonne ${col}, Nouvelle valeur : ${value}`);
-                    this.handleChange(cell, col, row, value);
+                    this.handleChange(instance, cell, col, row, value);
                 }
             });
         } else {
@@ -65,13 +65,20 @@ export class TableEdit {
     }
 
     // Méthode personnalisée pour gérer les changements de cellule
-    handleChange(cell: any, col: number, row: number, value: any) {
+    handleChange(instance: any, cell: any, col: number, row: number, value: any) {
+
+        const id: any = instance.getValueFromCoords(0,row)
+        const dataCol = this.columns[col]
+        const dataRow = this.rows.find(item => item.id === id);
+
         console.log(
             {
-                col: col,
-                row: row,
+                col: dataCol.name,
                 value: value,
-                // cell: cell
+                dataRow: dataRow,
+                row: row,
+                id: id,
+                cell: cell
             }
         );
 
