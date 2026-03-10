@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\Validator;
 class TableEditService
 {
     protected string $tableName;
+    protected string $className;
     protected string $keyColumn;
     protected Collection $columns;
     protected Collection $data;
 
-    public function __construct(string $tableName)
+    public function __construct(string $tableName, string $className = '')
     {
+        $this->className = $className;
         $this->tableName = $tableName;
         $this->keyColumn = 'id';
         $this->columns = collect();
@@ -108,51 +110,55 @@ class TableEditService
         }
     }
 
-    public static function make(string $tableName): self
+    public static function make(string $tableName, string $className): self
     {
-        return new self($tableName);
+        return new self($tableName, $className);
     }
 
     public function generate(): array
     {
+        try {
+            /** Vérification donnés */
+            if ($this->data->isEmpty()) {
+                return [
+                    "success" => false,
+                    "message" => "Aucune donnée",
+                ];
+            }
 
-        /** Vérification donnés */
-        if ($this->data->isEmpty()) {
+            /** Vérification des colonnes */
+            $firstRow = $this->data->first();
+            $colNames = $this->columns->map(fn($col) => $col->getName())->toArray();
+            $unexpected = array_diff($colNames, array_keys($firstRow));
+
+            if (!empty($unexpected)) {
+                $list = implode(', ', $unexpected);
+
+                return [
+                    "success" => false,
+                    "message" => "Clé(s) absente(s) dans les données : {$list}",
+                ];
+            }
+
             return [
-                "success" => false,
-                "message" => "Aucune donnée",
-            ];
-        }
-
-        /** Vérification des colonnes */
-        $firstRow = $this->data->first();
-        $colNames = $this->columns->map(fn($col) => $col->getName())->toArray();
-        $unexpected = array_diff($colNames, array_keys($firstRow));
-
-        if (!empty($unexpected)) {
-            $list = implode(', ', $unexpected);
-
-            return [
-                "success" => false,
-                "message" => "Clé(s) absente(s) dans les données : {$list}",
-            ];
-        }
-
-        /** Vérification des colonnes */
-        return [
-            'success' => true,
-            'message' => "ok",
-            'name' => $this->tableName,
-            'rows' => $this->data->toArray(),
-            'keyColumn' => $this->keyColumn,
-            'options' => [
-                'worksheets' => [
-                    [
-                        'data' => $this->data->toArray(),
-                        'columns' => $this->columns->map->toArray()->all(),
+                'success' => true,
+                'message' => "ok",
+                'name' => $this->tableName,
+                'className' => $this->className,
+                'rows' => $this->data->toArray(),
+                'keyColumn' => $this->keyColumn,
+                'options' => [
+                    'worksheets' => [
+                        [
+                            'data' => $this->data->toArray(),
+                            'columns' => $this->columns->map->toArray()->all(),
+                        ],
                     ],
                 ],
-            ],
-        ];
+            ];
+        } catch (\Throwable $th) {
+            Log::error("[tableEditService][generate]: {$th->getMessage()}");
+            dd($th->getMessage());
+        }
     }
 }

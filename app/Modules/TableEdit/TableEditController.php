@@ -28,9 +28,21 @@ class TableEditController extends Controller
         return response()->json($data);
     }
 
-    public function edit(Request $request): JsonResponse
+    public function edit($className, Request $request): JsonResponse
     {
-        $tableEdit = new ProductSecondTableEdit();
+        $classPath = "App\\Modules\\TableEdit\\Tables\\$className";
+
+        if (class_exists($classPath)) {
+            /** @var AbstractTable $table */
+            $tableEdit = new $classPath();
+        } else {
+            return response()->json([
+                'success' => false,
+                'status' => 'Bad Request',
+                'message' => "Le tableau $className n'est pas paramétré ",
+            ]);
+        }
+
         $data = $tableEdit->edit($request);
         return response()->json($data);
     }

@@ -22,6 +22,7 @@ export class ApiService {
 
     // Méthode POST
     post(endpoint: string, data: object) {
+        console.log(`${this.baseUrl}/${endpoint}`, data)
         return axios.post(`${this.baseUrl}/${endpoint}`, data)
             .then(response => response.data)
             .catch(error => {

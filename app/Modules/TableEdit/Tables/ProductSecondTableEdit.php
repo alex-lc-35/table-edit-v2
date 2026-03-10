@@ -50,7 +50,7 @@ class ProductSecondTableEdit extends AbstractTable
                 ->visible(false),
 
             NumericColumn::make('price', 'Prix')
-                ->editable(false),
+                ->editable(true),
 
             CalendarColumn::make('created_at', 'Date')
         ];

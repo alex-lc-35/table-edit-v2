@@ -33,7 +33,7 @@ abstract class AbstractTable
      */
     public function render(): array
     {
-        return TableEditService::make($this->tableName())
+        return TableEditService::make($this->tableName(), class_basename(static::class))
             ->setColumns($this->columns())
             ->setData($this->data())
             ->setKeyColumn($this->keyColumn())
@@ -42,7 +42,7 @@ abstract class AbstractTable
 
     public function edit(Request $request): array
     {
-        return TableEditService::make($this->tableName())
+        return TableEditService::make($this->tableName(), class_basename(static::class))
             ->setColumns($this->columns())
             ->edit($request);
     }

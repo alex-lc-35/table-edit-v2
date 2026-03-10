@@ -50,7 +50,7 @@ class ProductTableEdit extends AbstractTable
                 ->visible(false),
 
             NumericColumn::make('price', 'Prix')
-                ->editable(false),
+                ->editable(true),
         ];
     }
 
