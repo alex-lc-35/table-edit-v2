@@ -3,7 +3,6 @@
 namespace App\Modules\TableEdit;
 
 use App\Http\Controllers\Controller;
-use App\Modules\TableEdit\Tables\ProductSecondTableEdit;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
