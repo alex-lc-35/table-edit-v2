@@ -22,19 +22,13 @@ class TableEditServiceProvider extends ServiceProvider
 
             // Si la classe n'existe pas
             if (!class_exists($class)) {
-                Log::error('[table-edit] "Classe non trouvée : {$class}"');
-
-                return response()->json([
-                    'error' => 'Table non trouvée. Veuillez vérifier l\'identifiant de la table.',
-                ], 404);
+                Log::error("[table-edit] Classe non trouvée : {$class}");
+                abort(404, 'Classe non trouvée. Veuillez vérifier l\'identifiant de la table.');
             }
 
             if (!is_subclass_of($class, AbstractTable::class)) {
                 Log::error("[table-edit] La classe {$class} n'est pas une sous-classe de AbstractTable.");
-
-                return response()->json([
-                    'error' => 'Erreur de configuration pour cette table.',
-                ], 400);
+                abort(404, 'Erreur de configuration pour cette table.');
             }
 
             Log::info("[table-edit] Chargement de : {$value}");
