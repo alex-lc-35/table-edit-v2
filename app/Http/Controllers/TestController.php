@@ -20,4 +20,13 @@ class TestController extends Controller
         return view('testApi');
     }
 
+    public function get()
+    {
+        return json_encode("GET");
+    }
+
+    public function post(Request $request)
+    {
+        return json_encode("POST");
+    }
 }

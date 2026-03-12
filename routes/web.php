@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\TestController;
-use App\Modules\TableEdit\TableEditController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
