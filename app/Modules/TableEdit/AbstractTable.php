@@ -42,8 +42,10 @@ abstract class AbstractTable
 
     public function edit(Request $request): array
     {
-        return TableEditService::make($this->tableName(), class_basename(static::class))
+        TableEditService::make($this->tableName(), class_basename(static::class))
             ->setColumns($this->columns())
             ->edit($request);
+
+        return ['success' => true, 'message' => 'mise a jour effectuee'];
     }
 }

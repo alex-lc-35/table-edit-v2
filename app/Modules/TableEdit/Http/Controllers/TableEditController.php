@@ -2,6 +2,7 @@
 
 namespace App\Modules\TableEdit\Http\Controllers;
 
+use App\Actions\ShowTableAction;
 use App\Http\Controllers\Controller;
 use App\Modules\TableEdit\AbstractTable;
 use Illuminate\Http\JsonResponse;
@@ -9,10 +10,9 @@ use Illuminate\Http\Request;
 
 class TableEditController extends Controller
 {
-    public function show(AbstractTable $tableEditClass): JsonResponse
+    public function show(AbstractTable $tableEditClass, ShowTableAction $action): JsonResponse
     {
-        $data = $tableEditClass->render();
-        return response()->json($data);
+        return $action->execute($tableEditClass)->jsonResponse();
     }
 
     public function edit(AbstractTable $tableEditClass, Request $request): JsonResponse
