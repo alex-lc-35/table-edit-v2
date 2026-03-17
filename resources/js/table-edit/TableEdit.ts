@@ -15,19 +15,25 @@ export class TableEdit {
 
     constructor(data: {
         success: boolean,
-        message: string,
-        name: string,
-        className: string,
-        rows: any[],
-        keyColumn: string,
-        options: { worksheets: any[] }
+        data: {
+            name: string,
+            className: string,
+            rows: any[],
+            keyColumn: string,
+            options: { worksheets: any[] }
+        },
+        error: any
     }) {
-        this.name = data.name;
-        this.className = data.className;
-        this.rows = data.rows;
-        this.keyColumn = data.keyColumn;
-        this.data = data.options.worksheets[0].data;
-        this.columns = data.options.worksheets[0].columns;
+        console.log('constructor', data);
+        const {name, className, rows, keyColumn, options} = data.data;
+        const worksheet = options.worksheets[0];
+
+        this.name = name;
+        this.className = className;
+        this.rows = rows;
+        this.keyColumn = keyColumn;
+        this.data = worksheet.data;
+        this.columns = worksheet.columns;
         this.apiService = new ApiService('http://localhost:8002/api');
     }
 
@@ -40,7 +46,7 @@ export class TableEdit {
                     columns: this.columns
                 }],
                 // Événement sur les changements
-                onchange: (instance: any, cell: any, col: any, row: any, value: any, ess: any) => {
+                onchange: (instance: any, cell: any, col: any, row: any, value: any) => {
                     console.log(`Cellule modifiée : Ligne ${row}, Colonne ${col}, Nouvelle valeur : ${value}`);
                     this.handleChange(instance, cell, col, row, value);
                 }
